@@ -3,7 +3,11 @@ const CustomError = require("../extensions/custom-error");
 module.exports = function repeater(str, options) {
  //throw new CustomError('Not implemented');
   // remove line with error and write your code here
-  
+
+
+  if (options.repeatTimes == undefined) {
+    return (result = str + options.addition);
+  } 
  let curr = "";
  let  addition = "";
  if(typeof str != "string"){
@@ -15,7 +19,6 @@ module.exports = function repeater(str, options) {
 
   let regExp;  
   if(options.additionSeparator){
-    //regExp = new RegExp(`\\${options.additionSeparator}$`);
     addition+=options.additionSeparator;
   }else{
     regExp = /\|$/;
