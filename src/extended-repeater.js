@@ -4,53 +4,39 @@ module.exports = function repeater(str, options) {
  //throw new CustomError('Not implemented');
   // remove line with error and write your code here
 
+  
+  if (options.separator == undefined) {
+    options.separator = '+';
+  }
+  if (options.additionSeparator == undefined) {
+    options.additionSeparator = '||';
+  } 
 
+  let result = '';
   if (options.repeatTimes == undefined) {
     return (result = str + options.addition);
   } 
- let curr = "";
- let  addition = "";
- if(typeof str != "string"){
-   str.toString();
- }
- curr+=str;
- 
-  options.addition ? addition+=options.addition : addition+="";
+  for (let i = 0; i < options.repeatTimes; i++) {
 
-  let regExp;  
-  if(options.additionSeparator){
-    addition+=options.additionSeparator;
-  }else{
-    regExp = /\|$/;
-    addition+="|";
+
+    if (i == options.repeatTimes - 1) {
+      options.separator = '';
+    }
+    
+    let addSep = options.additionSeparator;
+    let addStr= '';
+
+    for (let k = 0; k < options.additionRepeatTimes; k++) {
+      if (k == options.additionRepeatTimes - 1) {
+          addSep  = '';
+      }
+
+      addStr += options.addition +addSep ;
+    }
+
+    result +=str + addStr + options.separator;
   }
   
-  options.additionRepeatTimes ? addition = addition.repeat(+options.additionRepeatTimes) : addition; 
-  if(regExp){
-    addition = addition.replace(regExp, "");
-  }else{
-    addition = addition.substr(0, options.additionSeparator.length-1);
-  }
-  
-  curr += addition;
-  
-
-  if(options.separator){     
-    curr+=options.separator;    
-  }else{   
-    curr+="+";
-  }
-
-  options.repeatTimes ? curr = curr.repeat(+options.repeatTimes) : curr;
- 
-  
-  if(options.separator){
-    let del = options.separator.length;
-    curr = curr.substr(0, curr.length-del);
-  }else{
-    curr = curr.substr(0, curr.length-1);
-  }
-
-  return curr;
+  return result;
 };
   
